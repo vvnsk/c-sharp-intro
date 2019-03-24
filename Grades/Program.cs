@@ -7,10 +7,6 @@ namespace Grades
     {
         public static void Main(string[] args)
         {
-
-            // SpeechSynthesizer synth = new SpeechSynthesizer();
-            // synth.Speak("Hello! This is the grade book program");
-
             GradeBook book = new GradeBook();
             book.AddGrade(91);
             book.AddGrade(89.5f);
@@ -27,6 +23,9 @@ namespace Grades
 
             // GradeBook book3 = book;
             // book3.AddGrade(75);
+
+            // SpeechSynthesizer synth = new SpeechSynthesizer();
+            // synth.Speak("Hello! This is the grade book program");
         }
     }
 }
