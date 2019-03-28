@@ -8,8 +8,15 @@ namespace Grades
         public static void Main(string[] args)
         {
             GradeBook book = new GradeBook();
+
+            book.NameChanged += new NameChangedDelegate(OnNameChanged);
+            book.NameChanged += new NameChangedDelegate(OnNameChanged2);
+            // -= removes function reference
+
+            book.Name = "Grade Book";
             book.Name = "Sai's Grade Book";
             book.Name = null; // Would be skipped by setter
+
             book.AddGrade(91);
             book.AddGrade(89.5f);
             book.AddGrade(75);
@@ -29,6 +36,16 @@ namespace Grades
 
             // SpeechSynthesizer synth = new SpeechSynthesizer();
             // synth.Speak("Hello! This is the grade book program");
+        }
+
+        static void OnNameChanged(string existingName, string newName)
+        {
+            Console.WriteLine($"Grade book changing from {existingName} to {newName}");
+        }
+
+        static void OnNameChanged2(string existingName, string newName)
+        {
+            Console.WriteLine($"***");
         }
 
         // Method overloading by a different signature - name and params
