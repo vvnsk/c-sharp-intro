@@ -9,9 +9,19 @@ namespace Grades
         {
             GradeBook book = new GradeBook();
 
-            book.NameChanged += new NameChangedDelegate(OnNameChanged);
-            book.NameChanged += new NameChangedDelegate(OnNameChanged2);
             // -= removes function reference
+
+            // book.NameChanged += new NameChangedDelegate(OnNameChanged);
+            book.NameChanged += OnNameChanged;
+            //book.NameChanged += new NameChangedDelegate(OnNameChanged2);
+            book.NameChanged += OnNameChanged2;
+
+            //These nullify each other
+            book.NameChanged += OnNameChanged2;
+            book.NameChanged -= OnNameChanged2;
+
+            // events only allow += or -=
+            // book.NameChanged = null;
 
             book.Name = "Grade Book";
             book.Name = "Sai's Grade Book";
@@ -38,12 +48,12 @@ namespace Grades
             // synth.Speak("Hello! This is the grade book program");
         }
 
-        static void OnNameChanged(string existingName, string newName)
+        static void OnNameChanged(object sender, NameChangedEventArgs args)
         {
-            Console.WriteLine($"Grade book changing from {existingName} to {newName}");
+            Console.WriteLine($"Grade book changing from {args.ExistingName} to {args.NewName}");
         }
 
-        static void OnNameChanged2(string existingName, string newName)
+        static void OnNameChanged2(object sender, NameChangedEventArgs args)
         {
             Console.WriteLine($"***");
         }
