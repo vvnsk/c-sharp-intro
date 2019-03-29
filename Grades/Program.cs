@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 // using System.Speech.Synthesis;
 
 namespace Grades
@@ -25,11 +26,31 @@ namespace Grades
 
             book.Name = "Grade Book";
             book.Name = "Sai's Grade Book";
-            book.Name = null; // Would be skipped by setter
+            try
+            {
+                book.Name = null;
+            }
+            catch(ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine("Something went wrong!" + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             book.AddGrade(91);
             book.AddGrade(89.5f);
             book.AddGrade(75);
+
+            using (StreamWriter outputFile = File.CreateText("grades.txt"))
+            {
+                book.WriteGrades(outputFile);
+            }
 
             GradeStatistics stats = book.ComputeStatistics();
 
@@ -37,6 +58,8 @@ namespace Grades
             WriteResult("Average", stats.AverageGrade);
             WriteResult("Highest", (int)stats.HighestGrade);
             Console.WriteLine(stats.LowestGrade);
+            WriteResult("Grade", stats.LetterGrade);
+            WriteResult("Description", stats.Description);
 
             // GradeBook book2 = new GradeBook();
             // book2.AddGrade(75);
@@ -74,5 +97,11 @@ namespace Grades
 
             Console.WriteLine($"{description}: {result:F2}");
         }
+
+        static void WriteResult(string description, string result)
+        {
+            Console.WriteLine(description + ": " + result);
+        }
+
     }
 }

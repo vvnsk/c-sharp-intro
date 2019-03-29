@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Grades
 {
@@ -16,19 +17,21 @@ namespace Grades
                 return _name;
             }
             set
-            { 
-                if(!String.IsNullOrEmpty(value))
+            {
+                if (String.IsNullOrEmpty(value))
                 {
-                    if(_name != value)
-                    {
-                        NameChangedEventArgs args = new NameChangedEventArgs();
-                        args.ExistingName = _name;
-                        args.NewName = value;
-                        NameChanged(this, args);
-                    }
-
-                    _name = value;
+                    throw new ArgumentException("Name cannot be Null");
                 }
+                if(_name != value)
+                {
+                    NameChangedEventArgs args = new NameChangedEventArgs();
+                    args.ExistingName = _name;
+                    args.NewName = value;
+
+                    NameChanged(this, args);
+                }
+
+                _name = value;
             }
         }
 
@@ -41,6 +44,14 @@ namespace Grades
         public void AddGrade(float grade) 
         {
             grades.Add(grade);
+        }
+
+        internal void WriteGrades(TextWriter destination)
+        {
+            for (int i = 0; i < grades.Count; i++)
+            {
+                destination.WriteLine(grades[i]);
+            }
         }
 
         public GradeStatistics ComputeStatistics() 
