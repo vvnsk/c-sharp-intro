@@ -1,39 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
 namespace Grades
 {
-    public class GradeBook
+    public class GradeBook : GradeTracker
     {
-        private List<float> grades;
-        private string _name;
-        public event NameChangedDelegate NameChanged;
-
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentException("Name cannot be Null");
-                }
-                if(_name != value)
-                {
-                    NameChangedEventArgs args = new NameChangedEventArgs();
-                    args.ExistingName = _name;
-                    args.NewName = value;
-
-                    NameChanged(this, args);
-                }
-
-                _name = value;
-            }
-        }
+        protected List<float> grades;
 
         public GradeBook()
         {
@@ -41,12 +15,17 @@ namespace Grades
             grades = new List<float>();
         }
 
-        public void AddGrade(float grade) 
+        public override IEnumerator GetEnumerator()
+        {
+            return grades.GetEnumerator();
+        }
+
+        public override void AddGrade(float grade) 
         {
             grades.Add(grade);
         }
 
-        internal void WriteGrades(TextWriter destination)
+        public override void WriteGrades(TextWriter destination)
         {
             for (int i = 0; i < grades.Count; i++)
             {
@@ -54,7 +33,7 @@ namespace Grades
             }
         }
 
-        public GradeStatistics ComputeStatistics() 
+        public override GradeStatistics ComputeStatistics() 
         {
             GradeStatistics stats =  new GradeStatistics();
 
