@@ -9,66 +9,47 @@ namespace Grades
         public static void Main(string[] args)
         {
             GradeBook book = new GradeBook();
+            GetBookName(book);
+            AddGrades(book);
+            SaveGrades(book);
+            WriteResults(book);
+        }
 
-            // -= removes function reference
+        private static void WriteResults(GradeBook book)
+        {
+            GradeStatistics stats = book.ComputeStatistics();
+            WriteResult("Average", stats.AverageGrade);
+            WriteResult("Highest", stats.HighestGrade);
+            WriteResult("Lowest", stats.LowestGrade);
+            WriteResult(stats.Description, stats.LetterGrade);
+        }
 
-            // book.NameChanged += new NameChangedDelegate(OnNameChanged);
-            book.NameChanged += OnNameChanged;
-            //book.NameChanged += new NameChangedDelegate(OnNameChanged2);
-            book.NameChanged += OnNameChanged2;
-
-            //These nullify each other
-            book.NameChanged += OnNameChanged2;
-            book.NameChanged -= OnNameChanged2;
-
-            // events only allow += or -=
-            // book.NameChanged = null;
-
-            book.Name = "Grade Book";
-            book.Name = "Sai's Grade Book";
-            try
-            {
-                book.Name = null;
-            }
-            catch(ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (NullReferenceException ex)
-            {
-                Console.WriteLine("Something went wrong!" + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            book.AddGrade(91);
-            book.AddGrade(89.5f);
-            book.AddGrade(75);
-
+        private static void SaveGrades(GradeBook book)
+        {
             using (StreamWriter outputFile = File.CreateText("grades.txt"))
             {
                 book.WriteGrades(outputFile);
             }
+        }
 
-            GradeStatistics stats = book.ComputeStatistics();
+        private static void AddGrades(GradeBook book)
+        {
+            book.AddGrade(91);
+            book.AddGrade(89.5f);
+            book.AddGrade(75);
+        }
 
-            Console.WriteLine(book.Name);
-            WriteResult("Average", stats.AverageGrade);
-            WriteResult("Highest", (int)stats.HighestGrade);
-            Console.WriteLine(stats.LowestGrade);
-            WriteResult("Grade", stats.LetterGrade);
-            WriteResult("Description", stats.Description);
-
-            // GradeBook book2 = new GradeBook();
-            // book2.AddGrade(75);
-
-            // GradeBook book3 = book;
-            // book3.AddGrade(75);
-
-            // SpeechSynthesizer synth = new SpeechSynthesizer();
-            // synth.Speak("Hello! This is the grade book program");
+        private static void GetBookName(GradeBook book)
+        {
+            try
+            {
+                Console.WriteLine("Enter a name");
+                book.Name = Console.ReadLine();
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         static void OnNameChanged(object sender, NameChangedEventArgs args)
@@ -89,12 +70,6 @@ namespace Grades
 
         static void WriteResult(string description, float result)
         {
-            // F2 is floating with 2 decimals
-            // Console.WriteLine("{0} : {1: F2}", description, result);
-
-            // C is currency
-            // Console.WriteLine("{0} : {1: F2}", description, result);
-
             Console.WriteLine($"{description}: {result:F2}");
         }
 
