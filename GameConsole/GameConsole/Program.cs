@@ -11,8 +11,6 @@ namespace GameConsole
             player.DaysSinceLastLogin = 42;
 
             PlayerDisplayer.Write(player);
-
-            Console.ReadLine();
         }
     }
 }
