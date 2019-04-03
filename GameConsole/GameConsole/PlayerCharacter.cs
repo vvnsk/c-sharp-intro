@@ -3,7 +3,7 @@ namespace GameConsole
 {
     public class PlayerCharacter
     {
-        private readonly ISpecialDefence _specialDefence;
+        private readonly SpecialDefence _specialDefence;
 
         public string Name { get; set; }
         public int Health { get; set; } = 100;
@@ -12,7 +12,7 @@ namespace GameConsole
         public bool? IsNoob { get; set; }
 
 
-        public PlayerCharacter(ISpecialDefence specialDefence)
+        public PlayerCharacter(SpecialDefence specialDefence)
         {
             _specialDefence = specialDefence;
         }
