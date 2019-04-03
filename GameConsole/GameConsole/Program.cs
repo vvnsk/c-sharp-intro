@@ -6,24 +6,45 @@ namespace GameConsole
     {
         public static void Main(string[] args)
         {
+            // InitTest();
+            // NullConditionalOperator();
+            // NullArrayValues();
+
+            PlayerCharacter sarah = new PlayerCharacter(new DiamondSkinDefence())
+            { 
+                Name = "Sarah"
+            };
+
+            PlayerCharacter amrit = new PlayerCharacter(new IronBonesDefence())
+            {
+                Name = "Amrit"
+            };
+
+            PlayerCharacter gentry = new PlayerCharacter(new NullDefence())
+            {
+                Name = "Gentry"
+            };
+
+            sarah.Hit(10);
+            amrit.Hit(10);
+            gentry.Hit(10);
+        }
+
+        private static void InitTest()
+        {
             /* var player = new PlayerCharacter();
             player.Name = "Sai";
             player.DaysSinceLastLogin = 42;
 
             PlayerDisplayer.Write(player); */
-
-            // NullConditionalOperator();
-
-            NullArrayValues();
-
         }
 
-        internal static void NullArrayValues()
+        private static void NullArrayValues()
         {
             PlayerCharacter[] players = new PlayerCharacter[3]
             {
-                new PlayerCharacter { Name = "Sai" },
-                new PlayerCharacter(), // Name is Null
+                null, // new PlayerCharacter { Name = "Sai" },
+                null, // new PlayerCharacter(), // Name is Null
                 null // PlayerCharacter is Null
             };
 
@@ -34,8 +55,7 @@ namespace GameConsole
             string p3 = players?[2]?.Name;
         }
 
-
-        internal static void NullConditionalOperator()
+        private static void NullConditionalOperator()
         {   
             PlayerCharacter player = null;
 
