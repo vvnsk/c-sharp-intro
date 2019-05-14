@@ -36,7 +36,7 @@ namespace Acme.Biz
         /// Retrieve all of the approved vendors.
         /// </summary>
         /// <returns></returns>
-        public ICollection<Vendor> Retrieve()
+        public IEnumerable<Vendor> Retrieve()
         {
             if (vendors == null)
             {
@@ -56,6 +56,22 @@ namespace Acme.Biz
                 // Console.WriteLine(vendor);
             }
             return vendors;
+        }
+
+        /// <summary>
+        /// Retrieve all of the approved vendors, one at a time.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Vendor> RetrieveWithIterator()
+        {
+            // Get this from database
+            this.Retrieve();
+
+            foreach (var vendor in vendors)
+            {
+                Console.WriteLine($"Vendor Id: {vendor.VendorId}");
+                yield return vendor;
+            }
         }
 
         /// <summary>

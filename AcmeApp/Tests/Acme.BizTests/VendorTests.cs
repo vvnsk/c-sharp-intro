@@ -154,7 +154,6 @@ namespace Acme.Biz.Tests
                 "Message sent: Important message for: ABC Corp",
                 "Message sent: Important message for: XYZ Corp"
             };
-            Console.WriteLine(vendors.Count);
 
             // Act
             var actual = Vendor.SendEmail(vendors, "Test Message");

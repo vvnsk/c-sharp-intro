@@ -116,7 +116,7 @@ namespace Acme.Biz
         /// <param name="vendors">Collection of vendors</param>
         /// <param name="message">Message to send</param>
         /// <returns></returns>
-        public static List<string> SendEmail(ICollection<Vendor> vendors, string message)
+        public static List<string> SendEmail(IEnumerable<Vendor> vendors, string message)
         {
             var confirmations = new List<string>();
             var emailService = new EmailService();
