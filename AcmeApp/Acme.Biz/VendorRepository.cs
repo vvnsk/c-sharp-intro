@@ -62,6 +62,43 @@ namespace Acme.Biz
         /// Retrieve all of the approved vendors.
         /// </summary>
         /// <returns></returns>
+        public List<Vendor> RetrieveArray()
+        {
+            if (vendors == null)
+            {
+                var vendors = new Vendor[2]
+                {
+                    new Vendor() {VendorId = 5, CompanyName = "ABC Corp", Email = "abc@abc.com"},
+                    new Vendor() {VendorId = 8, CompanyName = "XYZ Corp", Email = "xyz@xyz.com"}
+                };
+            }
+
+            return vendors;
+        }
+
+
+        /// <summary>
+        /// Retrieve all of the approved vendors.
+        /// </summary>
+        /// <returns></returns>
+        public List<Vendor> RetrieveList()
+        {
+            if (this.vendors == null)
+            {
+                this.vendors = new List<Vendor>
+                {
+                    new Vendor() {VendorId = 5, CompanyName = "ABC Corp", Email = "abc@abc.com"},
+                    new Vendor() {VendorId = 8, CompanyName = "XYZ Corp", Email = "xyz@xyz.com"}
+                };
+            }
+
+            return this.vendors;
+        }
+
+        /// <summary>
+        /// Retrieve all of the approved vendors.
+        /// </summary>
+        /// <returns></returns>
         public Dictionary<string, Vendor> RetrieveWithKeys()
         {
             var vendors = new Dictionary<string, Vendor>()
