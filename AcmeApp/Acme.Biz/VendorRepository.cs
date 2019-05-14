@@ -36,7 +36,7 @@ namespace Acme.Biz
         /// Retrieve all of the approved vendors.
         /// </summary>
         /// <returns></returns>
-        public List<Vendor> Retrieve()
+        public ICollection<Vendor> Retrieve()
         {
             if (vendors == null)
             {
@@ -55,88 +55,6 @@ namespace Acme.Biz
             {
                 // Console.WriteLine(vendor);
             }
-            return vendors;
-        }
-
-        /// <summary>
-        /// Retrieve all of the approved vendors.
-        /// </summary>
-        /// <returns></returns>
-        public List<Vendor> RetrieveArray()
-        {
-            if (vendors == null)
-            {
-                var vendors = new Vendor[2]
-                {
-                    new Vendor() {VendorId = 5, CompanyName = "ABC Corp", Email = "abc@abc.com"},
-                    new Vendor() {VendorId = 8, CompanyName = "XYZ Corp", Email = "xyz@xyz.com"}
-                };
-            }
-
-            return vendors;
-        }
-
-
-        /// <summary>
-        /// Retrieve all of the approved vendors.
-        /// </summary>
-        /// <returns></returns>
-        public List<Vendor> RetrieveList()
-        {
-            if (this.vendors == null)
-            {
-                this.vendors = new List<Vendor>
-                {
-                    new Vendor() {VendorId = 5, CompanyName = "ABC Corp", Email = "abc@abc.com"},
-                    new Vendor() {VendorId = 8, CompanyName = "XYZ Corp", Email = "xyz@xyz.com"}
-                };
-            }
-
-            return this.vendors;
-        }
-
-        /// <summary>
-        /// Retrieve all of the approved vendors.
-        /// </summary>
-        /// <returns></returns>
-        public Dictionary<string, Vendor> RetrieveWithKeys()
-        {
-            var vendors = new Dictionary<string, Vendor>()
-            {
-                { "ABC Corp", new Vendor(){ VendorId = 1, CompanyName = "ABC Corp", Email = "abc@abc.com"}},
-                { "XYZ Corp", new Vendor() { VendorId = 2, CompanyName = "XYZ Corp", Email = "xyz@xyz.com" }}
-            };
-
-            foreach (var element in vendors)
-            {
-                var vendor = element.Value;
-                var key = element.Key;
-
-                Console.WriteLine($"Key:{key} value: {vendor}");
-            }
-
-            /*foreach (var vendor in vendors.Values)
-            {
-                Console.WriteLine(vendor);
-            }*/
-
-            /*foreach (var companyName in vendors.Keys)
-            {
-                Console.WriteLine(companyName);
-            }
-
-            Console.WriteLine(vendors["XYZ Corp"]);
-            if (vendors.ContainsKey("XYZ"))
-            {
-                Console.WriteLine(vendors["XYZ"]);
-            }
-
-            Vendor vendor;
-            if (vendors.TryGetValue("XYZ", out vendor))
-            {
-                Console.WriteLine(vendor);
-            }*/
-
             return vendors;
         }
 
