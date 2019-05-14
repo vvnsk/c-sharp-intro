@@ -164,26 +164,6 @@ namespace Acme.Biz.Tests
         }
 
         [TestMethod()]
-        public void SendEmailTestArray()
-        {
-            // Arrange
-            var vendorRepository = new VendorRepository();
-            var vendors = vendorRepository.Retrieve();
-            var expected = new List<string>()
-            {
-                "Message sent: Important message for: ABC Corp",
-                "Message sent: Important message for: XYZ Corp"
-            };
-            Console.WriteLine(vendors.Count);
-
-            // Act
-            var actual = Vendor.SendEmail(vendors, "Test Message");
-
-            //Assert
-            CollectionAssert.AreEqual(expected, actual);
-        }
-
-        [TestMethod()]
         public void SendEmailTestDictionary()
         {
             // Arrange
