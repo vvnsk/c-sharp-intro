@@ -20,16 +20,21 @@ namespace Acme.Biz.Tests
             var repository = new VendorRepository();
             var expected = new List<Vendor>()
             {
-                new Vendor() {VendorId = 7, CompanyName = "TYU Toy Corp", Email = "tyu@tyu.com"},
-                new Vendor() {VendorId = 9, CompanyName = "JKL Toy Corp", Email = "jkl@jkl.com"}
+                new Vendor() {VendorId = 9, CompanyName = "JKL Toy Corp", Email = "jkl@jkl.com"},
+                new Vendor() {VendorId = 7, CompanyName = "TYU Toy Corp", Email = "tyu@tyu.com"}
             };
 
             //Act
             var vendors = repository.RetrieveAll();
 
-            var vendorQuery = from v in vendors
-                              where v.CompanyName.Contains("Toy")
-                              select v;
+            //var vendorQuery = from v in vendors
+            //                  where v.CompanyName.Contains("Toy")
+            //                  orderby v.CompanyName
+            //                  select v;
+
+            var vendorQuery = vendors
+                .Where(v => v.CompanyName.Contains("Toy"))
+                .OrderBy(v => v.CompanyName);
 
             //Assert
             CollectionAssert.AreEqual(expected, vendorQuery.ToList());
