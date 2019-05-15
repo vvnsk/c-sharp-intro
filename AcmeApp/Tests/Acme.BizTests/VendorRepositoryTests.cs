@@ -14,6 +14,29 @@ namespace Acme.Biz.Tests
     {
 
         [TestMethod()]
+        public void RetrieveAllTest()
+        {
+            //Arrange
+            var repository = new VendorRepository();
+            var expected = new List<Vendor>()
+            {
+                new Vendor() {VendorId = 7, CompanyName = "TYU Toy Corp", Email = "tyu@tyu.com"},
+                new Vendor() {VendorId = 9, CompanyName = "JKL Toy Corp", Email = "jkl@jkl.com"}
+            };
+
+            //Act
+            var vendors = repository.RetrieveAll();
+
+            var vendorQuery = from v in vendors
+                              where v.CompanyName.Contains("Toy")
+                              select v;
+
+            //Assert
+            CollectionAssert.AreEqual(expected, vendorQuery.ToList());
+
+        }
+
+        [TestMethod()]
         public void RetrieveTest()
         {
             //Arrange

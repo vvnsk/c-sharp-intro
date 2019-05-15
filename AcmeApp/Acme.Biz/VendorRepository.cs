@@ -59,6 +59,33 @@ namespace Acme.Biz
         }
 
         /// <summary>
+        /// Retrieve all of the approved vendors.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Vendor> RetrieveAll()
+        {
+            if (vendors == null)
+            {
+                vendors = new List<Vendor>()
+                {
+                    new Vendor() {VendorId = 1, CompanyName = "ABC Corp", Email = "abc@abc.com"},
+                    new Vendor() {VendorId = 2, CompanyName = "XYZ Corp", Email = "xyz@xyz.com"},
+                    new Vendor() {VendorId = 3, CompanyName = "QWE Corp", Email = "qwe@qwe.com"},
+                    new Vendor() {VendorId = 4, CompanyName = "SDF Corp", Email = "sdf@sdf.com"},
+                    new Vendor() {VendorId = 5, CompanyName = "ZXC Corp", Email = "zxc@zxc.com"},
+                    new Vendor() {VendorId = 6, CompanyName = "FGH Corp", Email = "fgh@fgh.com"},
+                    new Vendor() {VendorId = 7, CompanyName = "TYU Toy Corp", Email = "tyu@tyu.com"},
+                    new Vendor() {VendorId = 8, CompanyName = "BNM Corp", Email = "bnm@bnm.com"},
+                    new Vendor() {VendorId = 9, CompanyName = "JKL Toy Corp", Email = "jkl@jkl.com"},
+                    new Vendor() {VendorId = 10, CompanyName = "DFG Corp", Email = "dfg@dfg.com"},
+                    new Vendor() {VendorId = 11, CompanyName = "ERT Corp", Email = "ert@ert.com"},
+                };
+            }
+
+            return vendors;
+        }
+
+        /// <summary>
         /// Retrieve all of the approved vendors, one at a time.
         /// </summary>
         /// <returns></returns>
