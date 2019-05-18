@@ -11,15 +11,15 @@ namespace ACM.BLTest
         public void FullNameTestValid()
         {
             // Arrange
-            Customer customer = new Customer
+            var customer = new Customer
             {
                 FirstName = "Foo",
                 LastName = "Bar"
             };
-            string expected = "Bar, Foo";
+            var expected = "Bar, Foo";
 
             // Act
-            string actual = customer.FullName;
+            var actual = customer.FullName;
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -29,14 +29,14 @@ namespace ACM.BLTest
         public void FullNameFirstNameEmpty()
         {
             // Arrange
-            Customer customer = new Customer
+            var customer = new Customer
             {
                 LastName = "Bar"
             };
-            string expected = "Bar";
+            const string expected = "Bar";
 
             // Act
-            string actual = customer.FullName;
+            var actual = customer.FullName;
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -46,14 +46,14 @@ namespace ACM.BLTest
         public void FullNameLastNameEmpty()
         {
             // Arrange
-            Customer customer = new Customer
+            var customer = new Customer
             {
                 FirstName = "Foo"
             };
-            string expected = "Foo";
+            const string expected = "Foo";
 
             // Act
-            string actual = customer.FullName;
+            var actual = customer.FullName;
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -63,22 +63,54 @@ namespace ACM.BLTest
         public void StaticTest()
         {
             // Arrange
-            var c1 = new Customer();
-            c1.FirstName = "Loreum";
+            var c1 = new Customer {FirstName = "Loreum"};
             Customer.InstanceCount += 1;
 
-            var c2 = new Customer();
-            c2.FirstName = "Loreum";
+            var c2 = new Customer {FirstName = "Loreum"};
             Customer.InstanceCount += 1;
 
-            var c3 = new Customer();
-            c3.FirstName = "Loreum";
+            var c3 = new Customer {FirstName = "Loreum"};
             Customer.InstanceCount += 1;
 
             // Act
 
             // Assert
             Assert.AreEqual(3, Customer.InstanceCount);
+        }
+
+        [TestMethod]
+        public void ValidateValid()
+        {
+            // Arrange
+            var customer = new Customer
+            {
+                LastName = "Foo",
+                EmailAddress = "foo@bar.com"
+            };
+            const bool expected = true;
+
+            // Act
+            var actual = customer.Validate();
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ValidateMissingLastName()
+        {
+            // Arrange
+            var customer = new Customer
+            {
+                EmailAddress = "foo@bar.com"
+            };
+            const bool expected = false;
+
+            // Act
+            var actual = customer.Validate();
+
+            // Assert
+            Assert.AreEqual(expected, actual);
         }
     }
 }
