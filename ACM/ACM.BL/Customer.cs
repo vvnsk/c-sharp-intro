@@ -12,6 +12,24 @@ namespace ACM.BL
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string EmailAddress { get; set; }
-        public string FullName => LastName + ", " + FirstName;
+
+        public string FullName
+        {
+            get
+            {
+                var fullName = LastName;
+                if (string.IsNullOrWhiteSpace(FirstName)) return fullName;
+                if (!string.IsNullOrWhiteSpace(fullName))
+                {
+                    fullName += ", ";
+                }
+
+                fullName += FirstName;
+
+                return fullName;
+            }
+        }
+
+        public static int InstanceCount{ get; set;}
     }
 }
