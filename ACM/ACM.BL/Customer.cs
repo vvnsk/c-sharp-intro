@@ -19,6 +19,7 @@ namespace ACM.BL
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string EmailAddress { get; set; }
+        public static int InstanceCount { get; set; }
 
         public string FullName
         {
@@ -37,7 +38,19 @@ namespace ACM.BL
             }
         }
 
-        public static int InstanceCount{ get; set;}
+        /// <summary>
+        /// Validates the customer data
+        /// </summary>
+        /// <returns></returns>
+        public bool Validate()
+        {
+            var isValid = !string.IsNullOrWhiteSpace(LastName);
+
+            if (string.IsNullOrWhiteSpace(EmailAddress)) isValid = false;
+
+            return isValid;
+
+        }
 
         /// <summary>
         /// Retrieve one customer
@@ -64,20 +77,6 @@ namespace ACM.BL
         public bool Save()
         {
             return true;
-
-        }
-
-        /// <summary>
-        /// Validates the customer data
-        /// </summary>
-        /// <returns></returns>
-        public bool Validate()
-        {
-            var isValid = !string.IsNullOrWhiteSpace(LastName);
-
-            if (string.IsNullOrWhiteSpace(EmailAddress)) isValid = false;
-
-            return isValid;
 
         }
     }
