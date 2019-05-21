@@ -18,6 +18,7 @@ namespace ACM.BL
         }
 
         public List<Address> AddressList { get; set; }
+        public int CustomerType { get; set; }
         public int CustomerId { get; private set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
