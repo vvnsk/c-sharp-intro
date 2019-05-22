@@ -23,6 +23,7 @@ namespace ACM.BL
                 product.CurrentPrice = 15.96M;
             }
 
+            Console.WriteLine($"Product: {product.ToString()}");
             return product;
         }
 

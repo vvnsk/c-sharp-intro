@@ -23,6 +23,8 @@ namespace ACM.BL
         public string ProductName { get; set; }
         private int ProductId { get; set; }
 
+        public override string ToString() => ProductName;
+
         /// <summary>
         /// Validates the product data
         /// </summary>
