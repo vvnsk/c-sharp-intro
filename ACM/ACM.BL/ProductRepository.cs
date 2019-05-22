@@ -40,9 +40,27 @@ namespace ACM.BL
         /// Saves Current Product
         /// </summary>
         /// <returns></returns>
-        public bool Save()
+        public bool Save(Product product)
         {
-            return true;
+            var success = true;
+            if (!product.HasChanges) return success;
+            if (product.IsValid)
+            {
+                if (product.IsNew)
+                {
+                    // Call Insert
+                }
+                else
+                {
+                    // Call Update
+                }
+            }
+            else
+            {
+                success = false;
+            }
+
+            return success;
 
         }
     }
