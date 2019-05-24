@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Acme.Common;
 
 namespace ACM.BL
 {
-    public class Order
+    public class Order: EntityBase, ILoggable
     {
         public Order(): this(0)
         {
@@ -25,15 +26,15 @@ namespace ACM.BL
         public DateTimeOffset? OrderDate { get; set; }
         private int OrderId { get; set; }
 
+        public string Log() => $"{OrderId}: OrderDate: {OrderDate} Status: {EntityState.ToString()}";
         public override string ToString() => $"{OrderDate.Value.Date} ({OrderId})";
 
         /// <summary>
         /// Validates the order data
         /// </summary>
         /// <returns></returns>
-        public bool Validate()
+        public override bool Validate()
         {
-
             return OrderDate == null;
 
         }
