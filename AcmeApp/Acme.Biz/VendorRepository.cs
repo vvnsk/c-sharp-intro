@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace Acme.Biz
 {
     public class VendorRepository
     {
+        private List<Vendor> vendors;
+
         /// <summary>
         /// Retrieve one vendor.
         /// </summary>
@@ -36,6 +39,75 @@ namespace Acme.Biz
             T value = defaultValue;
 
             return value;
+        }
+
+        /// <summary>
+        /// Retrieve all of the approved vendors.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Vendor> Retrieve()
+        {
+            if (vendors == null)
+            {
+                vendors = new List<Vendor>();
+
+                vendors.Add(new Vendor(){ VendorId = 1, CompanyName = "ABC Corp", Email = "abc@abc.com"});
+                vendors.Add(new Vendor() { VendorId = 2, CompanyName = "XYZ Corp", Email = "xyz@xyz.com" });
+            }
+
+            for (int i = 0; i < vendors.Count; i++)
+            {
+                Console.WriteLine(vendors[i]);
+            }
+
+            foreach (var vendor in vendors)
+            {
+                // Console.WriteLine(vendor);
+            }
+            return vendors;
+        }
+
+        /// <summary>
+        /// Retrieve all of the approved vendors.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Vendor> RetrieveAll()
+        {
+            if (vendors == null)
+            {
+                vendors = new List<Vendor>()
+                {
+                    new Vendor() {VendorId = 1, CompanyName = "ABC Corp", Email = "abc@abc.com"},
+                    new Vendor() {VendorId = 2, CompanyName = "XYZ Corp", Email = "xyz@xyz.com"},
+                    new Vendor() {VendorId = 3, CompanyName = "QWE Corp", Email = "qwe@qwe.com"},
+                    new Vendor() {VendorId = 4, CompanyName = "SDF Corp", Email = "sdf@sdf.com"},
+                    new Vendor() {VendorId = 5, CompanyName = "ZXC Corp", Email = "zxc@zxc.com"},
+                    new Vendor() {VendorId = 6, CompanyName = "FGH Corp", Email = "fgh@fgh.com"},
+                    new Vendor() {VendorId = 7, CompanyName = "TYU Toy Corp", Email = "tyu@tyu.com"},
+                    new Vendor() {VendorId = 8, CompanyName = "BNM Corp", Email = "bnm@bnm.com"},
+                    new Vendor() {VendorId = 9, CompanyName = "JKL Toy Corp", Email = "jkl@jkl.com"},
+                    new Vendor() {VendorId = 10, CompanyName = "DFG Corp", Email = "dfg@dfg.com"},
+                    new Vendor() {VendorId = 11, CompanyName = "ERT Corp", Email = "ert@ert.com"},
+                };
+            }
+
+            return vendors;
+        }
+
+        /// <summary>
+        /// Retrieve all of the approved vendors, one at a time.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Vendor> RetrieveWithIterator()
+        {
+            // Get this from database
+            this.Retrieve();
+
+            foreach (var vendor in vendors)
+            {
+                Console.WriteLine($"Vendor Id: {vendor.VendorId}");
+                yield return vendor;
+            }
         }
 
         /// <summary>

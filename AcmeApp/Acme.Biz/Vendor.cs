@@ -70,6 +70,31 @@ namespace Acme.Biz
             return $"Vendor: {this.CompanyName} ({this.VendorId})";
         }
 
+        /// <summary>
+        ///Overridden to support comparision
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || this.GetType() != obj.GetType())
+                return false;
+
+            Vendor compareVendor = obj as Vendor;
+            if (compareVendor != null &&
+                this.VendorId == compareVendor.VendorId &&
+                this.CompanyName == compareVendor.CompanyName &&
+                this.Email == compareVendor.Email)
+                return true;
+
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
 
         /// <summary>
         /// Sends an email to welcome a new vendor.
@@ -83,6 +108,26 @@ namespace Acme.Biz
                                                         message,
                                                         this.Email);
             return confirmation;
+        }
+
+        /// <summary>
+        /// Sends an email to a set of vendors
+        /// </summary>
+        /// <param name="vendors">Collection of vendors</param>
+        /// <param name="message">Message to send</param>
+        /// <returns></returns>
+        public static List<string> SendEmail(IEnumerable<Vendor> vendors, string message)
+        {
+            var confirmations = new List<string>();
+            var emailService = new EmailService();
+            foreach (var vendor in vendors)
+            {
+                var subject = "Important message for: " + vendor.CompanyName;
+                var confirmation = emailService.SendMessage(subject, message, vendor.Email);
+                confirmations.Add(confirmation);
+            }
+
+            return confirmations;
         }
     }
 }
